@@ -61,21 +61,28 @@ model.fit(predictors, label, epochs=600, verbose=2)
 model.save('PANDA.h5')
 
 
-def predict_next_word(seed_text):
+def predict_next_words(seed_text, num_words=5):
     token_list = tokenizer.texts_to_sequences([seed_text])[0]
     token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
-    predicted = model.predict(token_list, verbose=0)
-    predicted_index = np.argmax(predicted)  # Get the index with the highest probability
-    predicted_word = ""
-    for word, index in tokenizer.word_index.items():
-        if index == predicted_index:
-            predicted_word = word
-            break
-    return predicted_word
+    predicted_words = []
+
+    for _ in range(num_words):
+        predicted = model.predict(token_list, verbose=0)
+        predicted_index = np.argmax(predicted)
+        predicted_word = ""
+        for word, index in tokenizer.word_index.items():
+            if index == predicted_index:
+                predicted_word = word
+                break
+        predicted_words.append(predicted_word)
+        token_list = np.append(token_list[:, 1:], [[predicted_index]], axis=1)
+
+    return predicted_words
+
 
 print('I\'m PANDA , Paradigm-based Artificial Neural Dialogue Agent , A Language Model which is able to predict next words')
 
 while True:
     user_input = input("user > ")
-    response = predict_next_word(user_input)
+    response = predict_next_words(user_input)
     print("next word > ", response)
