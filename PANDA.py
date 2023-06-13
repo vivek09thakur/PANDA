@@ -81,7 +81,7 @@ predictors, label = input_sequences[:, :-1], input_sequences[:, -1]
 # Build the model
 model = Sequential()
 model.add(Embedding(total_words, 60, input_length=max_sequence_len-1))
-model.add(LSTM(200))
+model.add(LSTM(500))
 model.add(Dense(total_words, activation='softmax'))
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(predictors, label, epochs=600, verbose=2)
