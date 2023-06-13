@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
 with open('D:/Github/PANDA/dialogs.txt','r') as f:
-    text_data = f.readline()
+    text_data = f.readlines()
 
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(text_data)
@@ -34,7 +34,7 @@ model.add(Embedding(total_words, 60, input_length=max_sequence_len-1))
 model.add(LSTM(200))
 model.add(Dense(total_words, activation='softmax'))
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(predictors, label, epochs=600, verbose=2)
+model.fit(predictors, label, epochs=200, verbose=1)
 model.save('PANDA.h5')
 
 
@@ -56,8 +56,6 @@ def predict_next_words(seed_text, num_words=5):
 
     return predicted_words
 
-
-print('I\'m PANDA , Paradigm-based Artificial Neural Dialogue Agent , A Language Model which is able to predict next words')
 
 while True:
     user_input = input("user > ")
