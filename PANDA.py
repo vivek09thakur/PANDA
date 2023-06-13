@@ -5,58 +5,8 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
-text_data = [
-    "hello",
-    "how are you doing",
-    "what is your name",
-    "where are you from",
-    "hi, how are you doing?",
-    "i'm fine. how about yourself?",
-    "i'm pretty good. thanks for asking.",
-    "no problem. so how have you been?",
-    "i've been great. what about you?",
-    "i've been good. i'm in school right now."
-    "what school do you go to?",
-    "i go to pcc.",
-    "do you like it there?",
-    "it's okay. it's a really big campus."
-    "good luck with school.",
-    "how's it going?",
-    "i'm doing well. how about you?"
-    "never better, thanks.",
-    "so how have you been lately?",
-    "i've actually been pretty good. you?",
-    "i'm actually in school right now.",
-    "which school do you attend?",
-    "i'm attending pcc right now.",
-    "are you enjoying it there?",
-    "where are you going to school?",
-    "i'm going to pcc.",
-    "how do you like it so far?",
-    "i like it so far. my classes are pretty good right now.",
-    "it's an ugly day today.",
-    "i know. i think it may rain.",
-    "it's the middle of summer, it shouldn't rain today.",
-    "that would be weird.",
-    "yeah, especially since it's ninety degrees outside.",
-    "i know, it would be horrible if it rained and it was hot outside.",
-    "yes, it would be. ",
-    "i really wish it wasn't so hot every day. ",
-    "me too. i can't wait until winter.",
-    "i like winter too, but sometimes it gets too cold.",
-    "i'd rather be cold than hot.",
-    "it doesn't look very nice outside today.",
-    "you're right. i think it's going to rain later.",
-    "in the middle of the summer, it shouldn't be raining.",
-    "that wouldn't seem right.",
-    "considering that it's over ninety degrees outside, that would be weird.",
-    "exactly, it wouldn't be nice if it started raining. it's too hot.",
-    "i know, you're absolutely right.",
-    "i wish it would cool off one day."
-]
-
-# with open('dialogs.txt','r') as f:
-#     text_data = f.readline()
+with open('D:/Github/PANDA/dialogs.txt','r') as f:
+    text_data = f.readline()
 
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(text_data)
@@ -81,7 +31,7 @@ predictors, label = input_sequences[:, :-1], input_sequences[:, -1]
 # Build the model
 model = Sequential()
 model.add(Embedding(total_words, 60, input_length=max_sequence_len-1))
-model.add(LSTM(500))
+model.add(LSTM(200))
 model.add(Dense(total_words, activation='softmax'))
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(predictors, label, epochs=600, verbose=2)
