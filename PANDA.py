@@ -29,8 +29,34 @@ text_data = [
     "i'm actually in school right now.",
     "which school do you attend?",
     "i'm attending pcc right now.",
-    "are you enjoying it there?"
+    "are you enjoying it there?",
+    "where are you going to school?",
+    "i'm going to pcc.",
+    "how do you like it so far?",
+    "i like it so far. my classes are pretty good right now.",
+    "it's an ugly day today.",
+    "i know. i think it may rain.",
+    "it's the middle of summer, it shouldn't rain today.",
+    "that would be weird.",
+    "yeah, especially since it's ninety degrees outside.",
+    "i know, it would be horrible if it rained and it was hot outside.",
+    "yes, it would be. ",
+    "i really wish it wasn't so hot every day. ",
+    "me too. i can't wait until winter.",
+    "i like winter too, but sometimes it gets too cold.",
+    "i'd rather be cold than hot.",
+    "it doesn't look very nice outside today.",
+    "you're right. i think it's going to rain later.",
+    "in the middle of the summer, it shouldn't be raining.",
+    "that wouldn't seem right.",
+    "considering that it's over ninety degrees outside, that would be weird.",
+    "exactly, it wouldn't be nice if it started raining. it's too hot.",
+    "i know, you're absolutely right.",
+    "i wish it would cool off one day."
 ]
+
+# with open('dialogs.txt','r') as f:
+#     text_data = f.readline()
 
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(text_data)
@@ -49,6 +75,7 @@ max_sequence_len = max([len(seq) for seq in input_sequences])
 input_sequences = np.array(pad_sequences(input_sequences, maxlen=max_sequence_len, padding='pre'))
 
 predictors, label = input_sequences[:, :-1], input_sequences[:, -1]
+
 
 
 # Build the model
