@@ -3,9 +3,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Embedding
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import os
 
-
-with open('D:/Github/PANDA/dialogs.txt','r') as f:
+with open('dialogs.txt', 'r') as f:
     text_data = f.readlines()
 
 tokenizer = Tokenizer()
@@ -17,7 +17,7 @@ next_words = []
 for line in text_data:
     token_list = tokenizer.texts_to_sequences([line])[0]
     for i in range(1, len(token_list)):
-        n_gram_sequence = token_list[:i+1]
+        n_gram_sequence = token_list[:i + 1]
         input_sequences.append(n_gram_sequence[:-1])
         next_words.append(n_gram_sequence[-1])
 
@@ -26,21 +26,28 @@ input_sequences = np.array(pad_sequences(input_sequences, maxlen=max_sequence_le
 
 predictors, label = input_sequences[:, :-1], input_sequences[:, -1]
 
-
-
-# Build the model
-model = Sequential()
-model.add(Embedding(total_words, 60, input_length=max_sequence_len-1))
-model.add(LSTM(200))
-model.add(Dense(total_words, activation='softmax'))
-model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(predictors, label, epochs=200, verbose=1)
-model.save('PANDA.h5')
-
+model_filename = 'PANDA.h5'
+if not os.path.exists(model_filename):
+    # Build the model
+    model = Sequential()
+    model.add(Embedding(total_words, 60, input_length=max_sequence_len - 1))
+    model.add(LSTM(200))
+    model.add(Dense(total_words, activation='softmax'))
+    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.fit(predictors, label, epochs=200, verbose=1)
+    model.save(model_filename)
+else:
+    # Build the model
+    model = Sequential()
+    model.add(Embedding(total_words, 60, input_length=max_sequence_len - 1))
+    model.add(LSTM(200))
+    model.add(Dense(total_words, activation='softmax'))
+    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.load_weights(model_filename)
 
 def predict_next_words(seed_text, num_words=5):
     token_list = tokenizer.texts_to_sequences([seed_text])[0]
-    token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
+    token_list = pad_sequences([token_list], maxlen=max_sequence_len - 1, padding='pre')
     predicted_words = []
 
     for _ in range(num_words):
@@ -55,7 +62,6 @@ def predict_next_words(seed_text, num_words=5):
         token_list = np.append(token_list[:, 1:], [[predicted_index]], axis=1)
 
     return predicted_words
-
 
 while True:
     user_input = input("user > ")
