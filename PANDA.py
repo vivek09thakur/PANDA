@@ -88,6 +88,7 @@ def predict_next_words(seed_text, num_words=5):
 
     return predicted_words
 
+os.system('cls')
 while True:
     user_input = input("user > ")
     response = predict_next_words(user_input)
