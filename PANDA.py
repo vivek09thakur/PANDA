@@ -5,7 +5,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import os
 
-with open('dialogs.txt', 'r') as f:
+with open('new_data.txt', 'r') as f:
     text_data = f.readlines()
 
 tokenizer = Tokenizer()
@@ -22,7 +22,10 @@ for line in text_data:
         next_words.append(n_gram_sequence[-1])
 
 max_sequence_len = max([len(seq) for seq in input_sequences])
-input_sequences = np.array(pad_sequences(input_sequences, maxlen=max_sequence_len, padding='pre'))
+input_sequences = np.array(pad_sequences(
+    input_sequences, 
+    maxlen=max_sequence_len,
+     padding='pre'))
 
 predictors, label = input_sequences[:, :-1], input_sequences[:, -1]
 
@@ -56,7 +59,7 @@ else:
     )
     model.load_weights(model_filename)
 
-def predict_next_words(seed_text, num_words=5):
+def predict_next_words(seed_text, num_words=15):
     token_list = tokenizer.texts_to_sequences([seed_text])[0]
     token_list = pad_sequences(
         [token_list], 
