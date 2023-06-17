@@ -3,4 +3,4 @@ Paradigm-based Artificial Neural Dialogue Agent (P.A.N.D.A) , An AI Language Mod
 
 > PANDA 🐼 in action :
 
-![image]("https://github.com/vivek09thakur/PANDA/docs/SS/SS1.jpg")
+![image]("https://github.com/vivek09thakur/PANDA/blob/main/docs/SS/SS1.jpg")
