@@ -1859,4 +1859,16 @@ there's something wrong with my right hand. what's wrong with it?
 it aches most of the time. what do you think it is?
 i don't know. i think it's old age. if it's old age, why don't both of your hands hurt?
 that's a good question. maybe it's not old age. are you right-handed?
-yes. all my life. you're wearing out your right hand. stop using it so much.
+yes. all my life. you're wearing out your right hand. stop using it so much.Hello World #include <iostream>
+using namespace std; int main() {
+cout << "Hello, World!" << endl;
+return 0;}
+// Example 2: Factorial #include <iostream>
+using namespace std; int factorial(int n) {
+if (n == 0) return 1; else return n * factorial(n - 1); }
+int main() { int num = 5; cout << "Factorial of " << num << " is: " << factorial(num) << endl; return 0;
+// Example 3: Fibonacci Series #include <iostream> using namespace std; int fibonacci(int n) {
+if (n <= 1) return n;
+else return fibonacci(n - 1) + fibonacci(n - 2); }
+int main() { int num = 10; cout << "Fibonacci Series up to " << num << " terms: ";for (int i = 0; i < num; i++) {    cout << fibonacci(i) << " ";}cout << endl;return 0;
+}// Example 4: Array Sum#include <iostream>using namespace std;int main() {    int numbers[] = {1, 2, 3, 4, 5};    int sum = 0;    for (int i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {        sum += numbers[i];    }    cout << "Sum of array elements: " << sum << endl;    return 0;}
