@@ -10,7 +10,7 @@ from keras.utils.data_utils import pad_sequences
 
 class PANDA:
     
-    def __init__(self,prompts,tokens,model_name):
+    def __init__(self,prompts,model_name,tokens=25):
         self.prompts = prompts
         self.tokens = tokens 
         with open(self.prompts,'r') as f:
