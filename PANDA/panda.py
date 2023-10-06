@@ -5,7 +5,7 @@ import numpy as np
 from keras.models import Sequential,load_model
 from keras.layers import Dense,LSTM,Embedding
 from keras.preprocessing.text import Tokenizer
-from keras.utils.data_utils import pad_sequences
+from keras.utils import pad_sequences
 
 
 class PANDA:
@@ -21,6 +21,7 @@ class PANDA:
         self.tokenizer.fit_on_texts(self.text_data)
         self.total_words = len(self.tokenizer.word_index) + 1
         self.model_name = model_name
+        # self.max_sequence_len = 0
         
     
     def preprocess_data(self):
@@ -35,23 +36,24 @@ class PANDA:
                 self.input_sequences.append(n_grams)
                 self.next_words.append(token_list[i])
                 
-    def pad_sequences(self):
+    def generate_pad_sequences(self):
         # Pad sequences
         self.max_sequence_len = max([len(x) for x in self.input_sequences])
         self.input_sequences = np.array(
             pad_sequences(self.input_sequences,
                           maxlen=self.max_sequence_len,padding='pre'))
+        self.predictors, self.label = self.input_sequences[:, :-1], self.input_sequences[:, -1]
         
     def create_model(self):
         # Create model
         self.model = Sequential()
         self.model.add(Embedding(self.total_words,100,
                                  input_length=self.max_sequence_len-1))
-        self.model.add(LSTM(150))
+        self.model.add(LSTM(500))
         self.model.add(Dense(self.total_words,activation='softmax'))
-        self.model.compile(loss='categorical_crossentropy',
+        self.model.compile(loss='sparse_categorical_crossentropy',
                            optimizer='adam',metrics=['accuracy'])
-        self.model.fit(self.input_sequences,self.next_words,epochs=100,
+        self.model.fit(self.predictors,self.label,epochs=500,
                        verbose=1)
         self.model.save(self.model_name)
         
@@ -95,15 +97,4 @@ class PANDA:
         print()
         
     def introduce(self):
-        print('Hello, I am PANDA, Paradgim-based Artificial Neural Dialogue Agent. An AI Language Model which is able to predict next sequence of words based on the input sequence of words.')
-    
-    
-        
-            
-        
-    
-    
-    
-                
-        
-        
+        self.type_response('Hello, I am PANDA, Paradgim-based Artificial Neural Dialogue Agent. An AI Language Model which is able to predict next sequence of words based on the input sequence of words.')
