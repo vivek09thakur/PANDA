@@ -47,5 +47,3 @@ Contributions are welcome! For bug reports or requests please submit an issue. F
 - Fix bugs and submit pull requests
 - Write, clarify, or fix documentation
 - Suggest or add new features
-
-### Thanks for reading! Enjoy! :D
