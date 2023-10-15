@@ -1,7 +1,7 @@
 ## Paradigm-based Artificial Neural Dailogue Agent or PANDA
 > A LSTM AI Language Model trained on 25K Tokens of English Language and C-Progamming Language which can predict next sequence of words and it can also write some basic codes to some extent.
 
-**PANDA (Paradigm-based Artificial Neural Dialogue Agent)** class is an implementation of a Language Model (LM) using Keras and LSTM (Long Short-Term Memory) neural networks. This LM is designed for text generation based on a provided set of prompts. 
+**PANDA (Paradigm-based Artificial Neural Dialogue Agent)** is an implementation of a Language Model (LM) using Keras and LSTM (Long Short-Term Memory) neural networks. This LM is designed for text generation based on a provided set of prompts. 
 
 It combines data preprocessing, neural network architecture, training, and text generation features to create a versatile LM capable of generating text based on input prompts. These features make it a valuable tool for various natural language processing tasks and creative text generation applications.
 
