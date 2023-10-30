@@ -29,7 +29,7 @@ panda.preprocess_data()
 panda.generate_pad_sequences()
 
 if __name__=='__main__':
-    panda.train_or_load_model()
+    panda.train_or_load_model(neuron_num=1000)
     panda.introduce()
     
     while True:
