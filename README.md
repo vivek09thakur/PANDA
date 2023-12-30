@@ -18,20 +18,18 @@ Spinnet of code for using PANDA class in your project:
 ```python
 from PANDA.panda import PANDA
 
-parameters = [
-    'Colab Notebook/dataset/prompt_completion.txt', # prompts file
-    'Saved Model/panda.h5', # model name
-     50 # number of tokens to generate
-]
+DATASET = 'Colab Notebook/dataset/prompt_completion.txt',
+MODEL_PATH = 'Saved Model/panda.h5', 
+TOKENS = 50 
 
-panda = PANDA(parameters[0],parameters[1],parameters[2])
+
+panda = PANDA(DATASET,MODEL_PATH,TOKENS)
 panda.preprocess_data()
 panda.generate_pad_sequences()
+panda.train_or_load_model(neuron_num=1000)
 
+panda.introduce()
 if __name__=='__main__':
-    panda.train_or_load_model(neuron_num=1000)
-    panda.introduce()
-    
     while True:
         prompts = input(f"\n ↳ (user) : " )
         completion = panda.completion(prompts)
