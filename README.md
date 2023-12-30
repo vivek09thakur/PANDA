@@ -11,7 +11,7 @@ In Repository, there are two files located at `Colab Notebook` folder :
 - `PANDA.ipynb` : This is the main experiment file which contains all the code for training and testing the model. You can run this file on Google Colab.
 - `Panda_Code_Refactored.ipynb` : This file contains the code for main refactored code for the model. You can run this file on Google Colab.
 
-Also, You can use this model by importing `PANDA.py` file in your project and use it as a class. Training this model on your own local machine takes a lot of time and resources. So,Therefor we have a *saved model* of it as `PANDA.h5` you can find it at `Saved Model/panda.h5` or if you want to train it by your self then I recommend you to use Google Colab for training this model.
+Also, You can use this model by importing `PANDA.py` file in your project and use it as a class. Training this model on your own local machine takes a lot of time and resources. So, Therefore we have a *saved model* of it as `PANDA.h5` you can find it at `Saved Model/panda.h5` or if you want to train it by your self then I recommend you to use Google Colab for training this model.
 
 Spinnet of code for using PANDA class in your project:
 
