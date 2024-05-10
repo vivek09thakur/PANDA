@@ -8,6 +8,7 @@ It combines data preprocessing, neural network architecture, training, and text 
 ## Usage
 
 In Repository, there are two files located at `Colab Notebook` folder :
+
 - `PANDA.ipynb` : This is the main experiment file which contains all the code for training and testing the model. You can run this file on Google Colab.
 - `Panda_Code_Refactored.ipynb` : This file contains the code for main refactored code for the model. You can run this file on Google Colab.
 
@@ -16,24 +17,14 @@ Also, You can use this model by importing `PANDA.py` file in your project and us
 Spinnet of code for using PANDA class in your project:
 
 ```python
-from PANDA.panda import PANDA
+    from PANDA.transform import PANDA
 
-DATASET = 'Colab Notebook/dataset/prompt_completion.txt',
-MODEL_PATH = 'Saved Model/panda.h5', 
-TOKENS = 50 
+    model = PANDA(['Train/Prompts/train_prompts.txt', 50])
+    model.pretrained('saved_model/panda-25k-2.5-lstm-lm')
 
-
-panda = PANDA(DATASET,MODEL_PATH,TOKENS)
-panda.preprocess_data()
-panda.generate_pad_sequences()
-panda.train_or_load_model(neuron_num=1000)
-
-panda.introduce()
-if __name__=='__main__':
-    while True:
-        prompts = input(f"\n ↳ (user) : " )
-        completion = panda.completion(prompts)
-        panda.type_response(completion)
+    for i in range(5): # inference for 5 turns
+        user_prompt = input('==> ')
+        print(model.infer(user_input=user_prompt))
 ```
 
 ### Contributing
