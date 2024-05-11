@@ -1,6 +1,6 @@
 from .data_processor import DATA_PROCESSOR
 from keras.models import Sequential
-from keras.layers import Dense,LSTM,Embedding
+from keras.layers import Dense,LSTM,Embedding,Dropout
 
 class TRAINER(DATA_PROCESSOR):
     
@@ -14,12 +14,25 @@ class TRAINER(DATA_PROCESSOR):
         self.model.add(Embedding(self.total_words,
                                  100,
                                  input_length=self.max_seq_len-1))
+        # Layer 1
         self.model.add(LSTM(1000))
+        self.model.add(Dropout(.1))
+        # Layer 2
         self.model.add(LSTM(500))
+        self.model.add(Dropout(.1))
+        # Layer 3
         self.model.add(LSTM(250))
+        self.model.add(Dropout(.1))
+        # Layer 4
         self.model.add(LSTM(125))
+        self.model.add(Dropout(.1))
+        # Layer 5
         self.model.add(LSTM(100))
-        self.model.add(LSTM(1000))
+        self.model.add(Dropout(.1))
+        # Layer 6
+        self.model.add(LSTM(590))
+        self.model.add(Dropout(.1))
+        # Layer 7
         self.model.add(Dense(self.total_words,activation='softmax'))
         self.model.compile(loss='sparse_categorical_crossentropy',
                            optimizer='adam',
@@ -29,3 +42,4 @@ class TRAINER(DATA_PROCESSOR):
                        2000,
                        verbose=2)
         self.model.save("panda-25k-2.5-lstm-lm")
+        
