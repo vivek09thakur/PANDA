@@ -5,7 +5,7 @@ from keras.utils import pad_sequences
 class DATA_PROCESSOR:
     def __init__(self,prompt_data) -> None:
         self.prompt_data = prompt_data
-        with open(self.prompt_data,'r') as f1:
+        with open(self.prompt_data,'r',encoding='utf-8') as f1:
             self.text_data = f1.readlines()
         self.tokenizer = Tokenizer()
         self.input_seqs = []
