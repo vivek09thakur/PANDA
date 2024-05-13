@@ -1,9 +1,26 @@
 from main.transform import PANDA
+from main.train import TRAINER
+import argparse
+    
+argparser = argparse.ArgumentParser()
+argparser.add_argument('--train', action='store_true')
+argparser.add_argument('--infer', action='store_true')
 
-model = PANDA(['train/prompts/train_prompts.txt', 50])
-model.pretrained('saved_model/panda-25k-2.5-lstm-lm')
+args = argparser.parse_args()
+if args.train:
+    argparser.add_argument('--train_prompts', type=str)
+    argparser.add_argument('--epochs', type=int)
+    trainer = TRAINER(args.train_prompts)
+    trainer.build_model(args.epochs)
+    trainer.build_model(epochs=args.epochs)
 
-for i in range(5): 
-    user_prompt = input('=> ')
-    completion = model.infer(user_prompt)
-    print("=> ",completion)
+elif args.infer:
+    argparser.add_argument('--prompt_file', type=str)
+    argparser.add_argument('--pretrained_model', type=str)
+    argparser.add_argument('--infer_rounds', type=int)
+    model = PANDA([args.prompt_file, 50])
+    model.pretrained(args.pretrained_model)
+    
+    for i in range(args.infer_rounds):
+        user_input = input('=>')
+        print(model.infer(user_input))

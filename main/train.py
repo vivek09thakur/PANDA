@@ -1,7 +1,6 @@
 from .data_processor import DATA_PROCESSOR
 from keras.models import Sequential
 from keras.layers import Dense,LSTM,Embedding,Dropout
-import argparse
 
 class TRAINER(DATA_PROCESSOR):
     
@@ -10,7 +9,7 @@ class TRAINER(DATA_PROCESSOR):
         DATA_PROCESSOR.process_prompt_data()
         DATA_PROCESSOR.generate_padded_seqs()
         
-    def build_model(self):
+    def build_model(self,epochs=1000):
         self.model = Sequential()
         self.model.add(Embedding(self.total_words,
                                  100,
@@ -40,14 +39,9 @@ class TRAINER(DATA_PROCESSOR):
                            metrics=['accuracy'])
         self.model.fit(self.predictors,
                        self.labels,
-                       2000,
+                       epochs=epochs,
                        verbose=2)
         self.model.save("panda-25k-2.5-lstm-lm")
         
-        
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='PANDA Training')
-    parser.add_argument('prompts_file', type=str, help='Path to prompts file')
-    trainer = TRAINER(parser.parse_args().prompts_file)
-    trainer.build_model()
+    
         
