@@ -8,6 +8,8 @@ class DATA_PROCESSOR:
         with open(self.prompt_data,'r') as f1:
             self.text_data = f1.readlines()
         self.tokenizer = Tokenizer()
+        self.input_seqs = []
+        self.next_words = []
         pass
     
     def process_raw_text(self):
@@ -15,8 +17,6 @@ class DATA_PROCESSOR:
         self.total_words = len(self.tokenizer.word_index) + 1
     
     def process_prompt_data(self):
-        self.input_seqs = []
-        self.next_words = []
         for line in self.text_data:
             token_list = self.tokenizer.texts_to_sequences([line])[0]
             for i in range(1,len(token_list)):
