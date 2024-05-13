@@ -5,6 +5,7 @@ from keras.utils import pad_sequences
 class DATA_PROCESSOR:
     def __init__(self,prompt_data) -> None:
         self.prompt_data = prompt_data
+        self.text_data = None
         pass
     
     def process_raw_text(self):
