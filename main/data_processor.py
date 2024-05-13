@@ -7,10 +7,10 @@ class DATA_PROCESSOR:
         self.prompt_data = prompt_data
         with open(self.prompt_data,'r') as f1:
             self.text_data = f1.readlines()
+        self.tokenizer = Tokenizer()
         pass
     
     def process_raw_text(self):
-        self.tokenizer = Tokenizer()
         self.tokenizer.fit_on_texts(self.text_data)
         self.total_words = len(self.tokenizer.word_index) + 1
     
