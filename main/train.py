@@ -1,6 +1,7 @@
 from .data_processor import DATA_PROCESSOR
 from keras.models import Sequential
 from keras.layers import Dense,LSTM,Embedding,Dropout
+import argparse
 
 class TRAINER(DATA_PROCESSOR):
     
@@ -42,4 +43,11 @@ class TRAINER(DATA_PROCESSOR):
                        2000,
                        verbose=2)
         self.model.save("panda-25k-2.5-lstm-lm")
+        
+        
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='PANDA Training')
+    parser.add_argument('prompts_file', type=str, help='Path to prompts file')
+    trainer = TRAINER(parser.parse_args().prompts_file)
+    trainer.build_model()
         
