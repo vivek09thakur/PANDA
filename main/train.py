@@ -6,6 +6,7 @@ class TRAINER(DATA_PROCESSOR):
     
     def __init__(self,prompts) -> None:
         DATA_PROCESSOR.__init__(self,prompts)
+        DATA_PROCESSOR.process_raw_text(self)
         DATA_PROCESSOR.process_prompt_data(self)
         DATA_PROCESSOR.generate_padded_seqs(self)
         
