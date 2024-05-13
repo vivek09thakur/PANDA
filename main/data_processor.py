@@ -5,13 +5,11 @@ from keras.utils import pad_sequences
 class DATA_PROCESSOR:
     def __init__(self,prompt_data) -> None:
         self.prompt_data = prompt_data
-        self.text_data = None
+        with open(self.prompt_data,'r') as f1:
+            self.text_data = f1.readlines()
         pass
     
     def process_raw_text(self):
-        with open(self.prompt_data,'r') as f1:
-            self.text_data = f1.readlines()
-            
         self.tokenizer = Tokenizer()
         self.tokenizer.fit_on_texts(self.text_data)
         self.total_words = len(self.tokenizer.word_index) + 1
